@@ -48,6 +48,7 @@
             justify-content: center;
             gap: 10px;
             margin-bottom: 30px;
+            flex-wrap: wrap;
         }
 
         .tab-btn {
@@ -79,7 +80,7 @@
             padding: 40px;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
@@ -99,50 +100,11 @@
             text-align: justify;
         }
 
-        /* Aba 2: Equipe Gerenciável */
-        .form-container {
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 6px;
-            margin-bottom: 30px;
-            border: 1px solid #ddd;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        .btn-submit {
-            background-color: #28a745;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .btn-submit:hover {
-            background-color: #218838;
-        }
-
+        /* Aba 2: Equipe Fixa */
         .team-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
+            gap: 25px;
             margin-top: 20px;
         }
 
@@ -150,64 +112,66 @@
             background: white;
             border: 1px solid #e0e0e0;
             border-radius: 8px;
-            padding: 20px;
+            padding: 30px 20px;
             text-align: center;
-            position: relative;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .member-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         .member-img {
-            width: 100px;
-            height: 100px;
+            width: 130px;
+            height: 130px;
             border-radius: 50%;
             object-fit: cover;
             margin-bottom: 15px;
             border: 3px solid var(--primary-color);
         }
 
+        .member-info {
+            margin-bottom: 15px;
+        }
+
         .member-name {
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             font-weight: bold;
             color: #333;
+            margin-bottom: 5px;
+            min-height: 54px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .member-role {
             color: #666;
             font-size: 0.9rem;
-            margin-bottom: 10px;
+            font-weight: 600;
         }
 
         .member-linkedin {
             display: inline-block;
-            margin-top: 10px;
             color: #0077b5;
             text-decoration: none;
             font-weight: 600;
+            padding: 5px 15px;
+            border: 1px solid #0077b5;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            margin-top: auto;
         }
 
         .member-linkedin:hover {
-            text-decoration: underline;
-        }
-
-        .btn-remove {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: #dc3545;
+            background-color: #0077b5;
             color: white;
-            border: none;
-            border-radius: 50%;
-            width: 25px;
-            height: 25px;
-            cursor: pointer;
-            font-weight: bold;
-            line-height: 25px;
-            text-align: center;
-            padding: 0;
-        }
-
-        .btn-remove:hover {
-            background-color: #c82333;
         }
     </style>
 </head>
@@ -233,37 +197,71 @@
     <section id="equipe" class="tab-content">
         <h2>Membros do Projeto</h2>
         
-        <div class="form-container">
-            <h3>Adicionar Integrante</h3>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px;">
-                <div class="form-group">
-                    <label for="nameInput">Nome:</label>
-                    <input type="text" id="nameInput" placeholder="Ex: João Silva">
-                </div>
-                <div class="form-group">
-                    <label for="roleInput">Cargo/Função:</label>
-                    <input type="text" id="roleInput" placeholder="Ex: Desenvolvedor Backend">
-                </div>
-                <div class="form-group">
-                    <label for="linkedinInput">LinkedIn (URL):</label>
-                    <input type="url" id="linkedinInput" placeholder="https://linkedin.com/in/...">
-                </div>
-                <div class="form-group">
-                    <label for="imgInput">Foto de Perfil (URL):</label>
-                    <input type="url" id="imgInput" placeholder="URL da imagem (ou deixe em branco)">
-                </div>
-            </div>
-            <button class="btn-submit" style="margin-top: 15px;" onclick="addMember()">Adicionar à Equipe</button>
-        </div>
-
-        <div class="team-grid" id="teamGrid">
+        <div class="team-grid">
+            
             <div class="member-card">
-                <button class="btn-remove" onclick="this.parentElement.remove()">&times;</button>
-                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150" alt="Foto de perfil" class="member-img">
-                <div class="member-name">Exemplo de Membro</div>
-                <div class="member-role">Gerente de Requisitos</div>
-                <a href="https://linkedin.com" target="_blank" class="member-linkedin">LinkedIn</a>
+                <img src="cairos.jpeg" alt="Foto de Cairos Emanuel" class="member-img">
+                <div class="member-info">
+                    <div class="member-name">Cairos Emanuel de Sena Andrade</div>
+                    <div class="member-role">Scrum Master</div>
+                </div>
+                <a href="https://www.linkedin.com/in/cairos-emanuel-de-sena-andrade-87b1153b7" target="_blank" class="member-linkedin">LinkedIn</a>
             </div>
+
+            <div class="member-card">
+                <img src="caua.jpeg" alt="Foto de Cauã Filipe" class="member-img">
+                <div class="member-info">
+                    <div class="member-name">Cauã Filipe de Sena Andrade</div>
+                    <div class="member-role">QA</div>
+                </div>
+                <a href="https://www.linkedin.com/in/cau%C3%A3-andrade-56ab2b3b6?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" class="member-linkedin">LinkedIn</a>
+            </div>
+
+            <div class="member-card">
+                <img src="Emanuel .jpeg" alt="Foto de Emanuel Davi" class="member-img">
+                <div class="member-info">
+                    <div class="member-name">Emanuel Davi Araujo Cabral Santos</div>
+                    <div class="member-role">Desenvolvedor Front-end</div>
+                </div>
+                <a href="https://www.linkedin.com/in/emanuel-davi-araujo-cabral-santos-444993356/" target="_blank" class="member-linkedin">LinkedIn</a>
+            </div>
+
+            <div class="member-card">
+                <img src="humberto.jpeg" alt="Foto de Humberto Gubert" class="member-img">
+                <div class="member-info">
+                    <div class="member-name">Humberto Gubert</div>
+                    <div class="member-role">Desenvolvedor Front-end / Back-end</div>
+                </div>
+                <a href="https://www.linkedin.com/in/humberto-gubert-120373367/" target="_blank" class="member-linkedin">LinkedIn</a>
+            </div>
+
+            <div class="member-card">
+                <img src="Samuel.jpeg" alt="Foto de Samuel Costa" class="member-img">
+                <div class="member-info">
+                    <div class="member-name">Samuel Costa Pinto de Mesquita</div>
+                    <div class="member-role">Desenvolvedor Front-end / Back-end</div>
+                </div>
+                <a href="https://www.linkedin.com/in/samuel-costa-992b78365?utm_source=share_via&utm_content=profile&utm_medium=member_ios" target="_blank" class="member-linkedin">LinkedIn</a>
+            </div>
+
+            <div class="member-card">
+                <img src="sydney.jpeg" alt="Foto de Sydney Fernando" class="member-img">
+                <div class="member-info">
+                    <div class="member-name">Sydney Fernando Sabino Mendes</div>
+                    <div class="member-role">Product Owner (P.O.)</div>
+                </div>
+                <a href="https://www.linkedin.com/in/sydney-fernando-3ab566237?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" class="member-linkedin">LinkedIn</a>
+            </div>
+
+            <div class="member-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="Foto de Guilherme Almeida" class="member-img">
+                <div class="member-info">
+                    <div class="member-name">Guilherme Almeida Coelho</div>
+                    <div class="member-role">Desenvolvedor Back-end</div>
+                </div>
+                <a href="https://www.linkedin.com/in/guilherme-almeida-coelho-25a2542b6/" target="_blank" class="member-linkedin">LinkedIn</a>
+            </div>
+
         </div>
     </section>
 
@@ -289,53 +287,6 @@
 
             document.getElementById(tabId).style.display = "block";
             evt.currentTarget.classList.add("active");
-        }
-
-        // Função para adicionar dinamicamente um membro à equipe
-        function addMember() {
-            const name = document.getElementById('nameInput').value.trim();
-            const role = document.getElementById('roleInput').value.trim();
-            let linkedin = document.getElementById('linkedinInput').value.trim();
-            let imgUrl = document.getElementById('imgInput').value.trim();
-
-            if (!name || !role) {
-                alert("Por favor, preencha pelo menos o Nome e o Cargo.");
-                return;
-            }
-
-            // Foto padrão caso o usuário não coloque nenhuma URL
-            if (!imgUrl) {
-                imgUrl = "https://cdn-icons-png.flaticon.com/512/149/149071.png";
-            }
-
-            // Garante que o link tenha o protocolo correto
-            if (linkedin && !linkedin.startsWith('http://') && !linkedin.startsWith('https://')) {
-                linkedin = 'https://' + linkedin;
-            } else if (!linkedin) {
-                linkedin = '#';
-            }
-
-            const grid = document.getElementById('teamGrid');
-
-            // Cria o elemento do card
-            const card = document.createElement('div');
-            card.className = 'member-card';
-
-            card.innerHTML = `
-                <button class="btn-remove" onclick="this.parentElement.remove()">&times;</button>
-                <img src="${imgUrl}" alt="Foto de ${name}" class="member-img">
-                <div class="member-name">${name}</div>
-                <div class="member-role">${role}</div>
-                <a href="${linkedin}" target="_blank" class="member-linkedin">LinkedIn</a>
-            `;
-
-            grid.appendChild(card);
-
-            // Limpa os campos do formulário após adicionar
-            document.getElementById('nameInput').value = '';
-            document.getElementById('roleInput').value = '';
-            document.getElementById('linkedinInput').value = '';
-            document.getElementById('imgInput').value = '';
         }
     </script>
 </body>
